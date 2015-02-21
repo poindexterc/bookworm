@@ -1,51 +1,51 @@
 {
 "1": {
       
-        "title": "Around the World in 80 Days.txt",
+        "title": "Around the World in 80 Days.htm",
         "genre": "adventure"
     },
 "2": {
-        "title": "Tarzan.txt",
+        "title": "Tarzan.htm",
         "genre": "adventure" 
     },
 "3": {
-        "title": "ThreeMusketeers.txt",
+        "title": "ThreeMusketeers.htm",
         "genre": "adventure" 
     },
 "4": {
-        "title": "AModernCinderalla.txt",
+        "title": "AModernCinderalla.htm",
         "genre": "children" 
     },
 "5": {
-        "title": "LittleWomen.txt",
+        "title": "LittleWomen.htm",
         "genre": "children" 
     },
 "6": {
-        "title": "The luckiest little girl.txt",
+        "title": "The luckiest little girl.htm",
         "genre": "children" 
     },
 "7": {
-        "title": "AliceInWonderland.txt",
+        "title": "YoungRobinhood.htm",
         "genre": "fantasy" 
     },
 "8": {
-        "title": "The Hollow Land.txt",
+        "title": "The Hollow Land.htm",
         "genre": "fantasy" 
     },
 "9": {
-        "title": "The Wood Beyond the World.txt",
+        "title": "The Wood Beyond the World.htm",
         "genre": "fantasy" 
     },
 "10": {
-        "title": "TheCrowdedEarth.txt",
+        "title": "TheCrowdedEarth.htm",
         "genre": "sci-fi" 
     },
 "11": {
-        "title": "ThePerfectionists.txt",
+        "title": "ThePerfectionists.htm",
         "genre": "sci-fi" 
     },
 "12": {
-        "title": "TimeMachine.txt",
+        "title": "TimeMachine.htm",
         "genre": "sci-fi" 
     }
 }
