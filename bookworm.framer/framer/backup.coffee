@@ -5,7 +5,7 @@ book = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 
 # -- BOOK VIEW 
 book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
-current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/lorem.txt', cover: 'images/threemus.jpg'}
+current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/ThreeMuskateers.html', cover: 'images/threemus.jpg'}
 book_cover.image = current_book.cover
 book_cover.style = 
 	backgroundPosition: 'center center'
@@ -97,7 +97,7 @@ read = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 read_text = new Layer width: 750, height: 1334, backgroundColor: 'white', superLayer: read
 
 
-read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '35px', lineHeight: '100%', padding: '30px'}
+read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '40px', lineHeight: '120%', padding: '30px'}
 read_text.opacity = 0
 read.visible = false
 get_text = ->
@@ -112,7 +112,7 @@ get_text = ->
 
 show_text = (data) ->
 	read.visible = true
-	read_text.scroll = true	
+	read_text.scrollVertical = true	
 	read_text.html = data
 	Utils.delay 0.01, ->
 		read_text.animate({
