@@ -30,7 +30,7 @@ def get_book_from_genre(genre):
     json_data = open('book_info.json', 'r')
     data = json.load(json_data)
     for id_es, book in data.iteritems():
-        if (book["title"] == rand_title):
+        if (book["title"][:-3] == rand_title[:-3]):
             return {"id": id_es, "cover": linked + "/" + rand_title[:-3] + "jpg"}
 
 
