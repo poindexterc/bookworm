@@ -5,7 +5,7 @@ book = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 
 # -- BOOK VIEW 
 book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
-current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/ThreeMusketeers.txt', cover: 'images/threemus.jpg'}
+current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/lorem.txt', cover: 'images/threemus.jpg'}
 book_cover.image = current_book.cover
 book_cover.style = 
 	backgroundPosition: 'center center'
@@ -72,8 +72,10 @@ book.on Events.Click, ->
 read = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 read_text = new Layer width: 750, height: 1334, backgroundColor: 'white', superLayer: read
 
+
 read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '35px', lineHeight: '100%', padding: '30px'}
 read_text.opacity = 0
+read.visible = false
 get_text = ->
 	book_cover_inner.animate({
     	properties: {scale:1.45},
@@ -84,15 +86,48 @@ get_text = ->
 	  crossOrigin: true,
 	  success: (data, status) => show_text(data)
 
-	
 show_text = (data) ->
+	read.visible = true
 	read_text.scroll = true	
 	read_text.html = data
-	read_text.animate({
-		properties: {'opacity': 1},
-	})
-	book.animate({
-		properties: {'opacity': 0}
-	})
-		
+	Utils.delay 0.01, ->
+		read_text.animate({
+			properties: {'opacity': 1},
+			curve: "ease-in-out"
+			time: 1
+		})
 	
+	book.animate({
+		properties: {'opacity': 0},
+		curve: "ease-in-out",
+		time: 1
+	})
+	read.draggable.enabled = true
+	read.draggable.speedX = 0
+	
+	
+read.on Events.DragMove, ->
+	console.log(read.draggable.calculateVelocity().y)
+	hide_read() if read.draggable.calculateVelocity().y > 6 
+	
+hide_read = ->
+	read.draggable.enabled = false
+	Utils.delay 0.01, ->
+		read_text.animate({
+			properties: {'opacity': 0},
+			curve: "ease-in-out"
+			time: 1
+		})
+		read.animate({
+			properties: {y: 1000},
+			time: .5
+		})
+	book.animate({
+		properties: {'opacity': 1},
+		curve: "ease-in-out",
+		time: 1
+	})
+	book_cover_inner.animate({
+    	properties: {scale:1},
+    	curve: "ease-in-out"
+	})
