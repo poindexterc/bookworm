@@ -8,7 +8,7 @@ import random
 def get_next_book():
     # gets the next book of the given genre
     # calls get_book_from_genre
-    # return id
+    # return id, cover
 
     json_data = open("history_id.json", "r")
     data = json.load(json_data)
@@ -29,10 +29,9 @@ def get_book_from_genre(genre):
     rand_title = random.choice(list_of_books)
     json_data = open('book_info.json', 'r')
     data = json.load(json_data)
-
     for id_es, book in data.iteritems():
         if (book["title"] == rand_title):
-            return id_es
+            return {"id": id_es, "cover": linked + "/" + rand_title[:-3] + "jpg"}
 
 
 @post('/thumb_up')
