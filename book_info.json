@@ -7,5 +7,46 @@
 "2": {
         "title": "Tarzan.txt",
         "genre": "adventure" 
-    }
+    },
+"3": {
+        "title": "ThreeMusketeers.txt",
+        "genre": "adventure" 
+    },
+"4": {
+        "title": "AModernCinderalla.txt",
+        "genre": "children" 
+    },
+"5": {
+        "title": "LittleWomen.txt",
+        "genre": "children" 
+    },
+"6": {
+        "title": "The luckiest little girl.txt",
+        "genre": "children" 
+    },
+"7": {
+        "title": "AliceInWonderland.txt",
+        "genre": "fantasy" 
+    },
+"8": {
+        "title": "The Hollow Land.txt",
+        "genre": "fantasy" 
+    },
+"9": {
+        "title": "The Wood Beyond the World.txt",
+        "genre": "fantasy" 
+    },
+"10": {
+        "title": "TheCrowdedEarth.txt",
+        "genre": "sci-fi" 
+    },
+"11": {
+        "title": "ThePerfectionists.txt",
+        "genre": "sci-fi" 
+    },
+"12": {
+        "title": "TimeMachine.txt",
+        "genre": "sci-fi" 
+    },
+
 }
