@@ -59,12 +59,36 @@ upvote.image = 'images/upvote.png'
 upvote.x = 275
 upvote.y = 1095
 
+upvote.states.add({
+	"default": {scale:1},
+	"down": {scale: .5}
+});
+
+upvote.on Events.TouchStart, ->
+	upvote.states.switch("down")
+	
+upvote.on Events.TouchEnd, ->
+	upvote.states.switch("default")
+
 downvote = new Layer width: 77, height: 73, backgroundColor: 'transparent', superLayer: book
 downvote.image = 'images/downvote.png'
 downvote.x = 393
 downvote.y = 1095
 
-book.on Events.Click, ->
+downvote.states.add({
+	"default": {scale:1},
+	"down": {scale: .5}
+});
+
+downvote.on Events.TouchStart, ->
+	downvote.states.switch("down")
+	
+downvote.on Events.TouchEnd, ->
+	downvote.states.switch("default")
+
+
+
+book_cover_inner.on Events.Click, ->
 	console.log('click')
 	get_text()
 
