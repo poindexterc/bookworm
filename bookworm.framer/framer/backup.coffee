@@ -8,9 +8,38 @@ book_cover.image = current_book.cover
 book_cover.style = 
 	backgroundPosition: 'center center'
 book_cover.blur = 20
-book_cover.brightness = 90
+book_cover.brightness = 60
 
-	
+# Text input - Koen Bok
+# This creates a layer and tells it to listen to mouse events 
+textInputLayer = new Layer 
+	x:55
+	y:80
+	width:640
+	height:80
+	backgroundColor: "transparent"
+	borderRadius:10
+
+textInputLayer.ignoreEvents = false
+textInputLayer.style = {"border" : "2px solid #fff"}
+
+# This creates a text input and adds some styling in plain JS
+inputElement = document.createElement("input")
+inputElement.style["width"]  = "#{textInputLayer.width}px"
+inputElement.style["height"] = "#{textInputLayer.height}px"
+inputElement.style["font"] = "34px/1.35em Helvetica"
+inputElement.style["-webkit-user-select"] = "text"
+inputElement.style["padding-left"] = "20px"
+inputElement.style["background-color"] = "rgba(255,255,255,.3)"
+inputElement.style["color"] = "#fff"
+inputElement.style["outline"] = "none"
+
+# Set the value, focus and listen for changes
+inputElement.placeholder = "Search for a book..."
+inputElement.value = ""
+inputElement.focus()
+textInputLayer._element.appendChild(inputElement)
+
 book_cover_inner = new Layer width: 527, height: 725, backgroundColor: 'transparent', superLayer: book
 
 book_cover_inner.image = current_book.cover
