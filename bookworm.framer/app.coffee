@@ -1,9 +1,11 @@
 new BackgroundLayer backgroundColor:'#000'
+Utils.insertCSS('@import url(http://fonts.googleapis.com/css?family=Lusitana);')
 book = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 
-book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
-current_book = {id: 1, cover: 'images/hpcover.jpg'}
 
+# -- BOOK VIEW 
+book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
+current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/ThreeMusketeers.txt', cover: 'images/threemus.jpg'}
 book_cover.image = current_book.cover
 book_cover.style = 
 	backgroundPosition: 'center center'
@@ -19,6 +21,7 @@ textInputLayer = new Layer
 	height:80
 	backgroundColor: "transparent"
 	borderRadius:10
+	superLayer: book
 
 textInputLayer.ignoreEvents = false
 textInputLayer.style = {"border" : "2px solid #fff"}
@@ -61,4 +64,35 @@ downvote.image = 'images/downvote.png'
 downvote.x = 393
 downvote.y = 1095
 
+book.on Events.Click, ->
+	console.log('click')
+	get_text()
 
+## -- READ VIEW
+read = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
+read_text = new Layer width: 750, height: 1334, backgroundColor: 'white', superLayer: read
+
+read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '35px', lineHeight: '100%', padding: '30px'}
+read_text.opacity = 0
+get_text = ->
+	book_cover_inner.animate({
+    	properties: {scale:1.45},
+    	curve: "ease-in-out"
+	})
+	$.ajax current_book.directory,
+	  jsonp: "jsonp",
+	  crossOrigin: true,
+	  success: (data, status) => show_text(data)
+
+	
+show_text = (data) ->
+	read_text.scroll = true	
+	read_text.html = data
+	read_text.animate({
+		properties: {'opacity': 1},
+	})
+	book.animate({
+		properties: {'opacity': 0}
+	})
+		
+	
