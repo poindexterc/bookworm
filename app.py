@@ -1,4 +1,4 @@
-from bottle import route, run, request, post
+from bottle import route, run, request, post, response
 import json
 import os
 import random
@@ -66,16 +66,22 @@ def thumb_down():
 @post('/get_text')
 def get_text():
     # go into the directory of the book and return the text file
+    json_data = request.query.decode()
+    print json_data
+    book_id = request.forms.get('id')
+    # print json_data
+    # print dir(json_data)
+    # data = json.loads(json_data)
+    # book_id = json_data['id']
 
-    json_data = request.body.read()
-    data = json.loads(json_data)
-    book_id = data['id']
     json_new_data = open('book_info.json', 'r')
     new_data = json.load(json_new_data)
     book_genre = new_data[book_id]["genre"]
     book_title = new_data[book_id]["title"]
     book_path = "genre/"+ book_genre + "/" + book_title
     text = open(book_path, 'r')
+    response.content_type = "application/html"
+    response.status = 200
     return text
 
 

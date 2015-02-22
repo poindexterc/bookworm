@@ -5,8 +5,24 @@ book = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 
 # -- BOOK VIEW 
 book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
-current_book = {id: 1, directory: 'http://localhost:9000/genre/adventure/ThreeMuskateers.html', cover: 'images/threemus.jpg'}
-book_cover.image = current_book.cover
+book_cover_inner = new Layer width: 527, height: 725, backgroundColor: 'transparent', superLayer: book
+current_book_id = null
+$.ajax 'http://localhost:8080/get_next_book',
+	  jsonp: "jsonp",
+	  crossOrigin: true,
+	  success: (data, status) => get_current_book(data)
+	  
+get_current_book = (data) ->
+	book_cover.image = '../'+data.cover
+	book_cover_inner.image = '../'+data.cover
+	book_cover_inner.shadowY = 0
+	book_cover_inner.shadowBlur = 16
+	book_cover_inner.shadowColor = "rgba(0,0,0,.4)"
+	book_cover_inner.x = 110
+	book_cover_inner.y = 300
+	current_book_id = data.id
+
+
 book_cover.style = 
 	backgroundPosition: 'center center'
 book_cover.blur = 20
@@ -43,14 +59,9 @@ inputElement.value = ""
 inputElement.focus()
 textInputLayer._element.appendChild(inputElement)
 
-book_cover_inner = new Layer width: 527, height: 725, backgroundColor: 'transparent', superLayer: book
 
-book_cover_inner.image = current_book.cover
-book_cover_inner.shadowY = 0
-book_cover_inner.shadowBlur = 16
-book_cover_inner.shadowColor = "rgba(0,0,0,.4)"
-book_cover_inner.x = 110
-book_cover_inner.y = 300
+
+
 
 
 
@@ -105,15 +116,21 @@ get_text = ->
     	properties: {scale:1.45},
     	curve: "ease-in-out"
 	})
-	$.ajax current_book.directory,
-	  jsonp: "jsonp",
+		
+	$.ajax 'http://localhost:8080/get_text',
+	  type: "POST",
+	  dataType: "json",
+	  data: {
+	  	id: current_book_id
+	  },
 	  crossOrigin: true,
-	  success: (data, status) => show_text(data)
+	  complete: (data, status) => show_text(data)
 
 show_text = (data) ->
+	console.log(data)
 	read.visible = true
 	read_text.scrollVertical = true	
-	read_text.html = data
+	read_text.html = data.responseText
 	Utils.delay 0.01, ->
 		read_text.animate({
 			properties: {'opacity': 1},
@@ -132,8 +149,17 @@ show_text = (data) ->
 	
 read.on Events.DragMove, ->
 	console.log(read.draggable.calculateVelocity().y)
-	hide_read() if read.draggable.calculateVelocity().y > 6 
+	hide_read() if read.draggable.calculateVelocity().y > 6
+	reset_read() if read.draggable.calculateVelocity().y < 6
 	
+	
+reset_read = ->
+	read.draggable.enabled = false
+	read.animate ({
+		properties: {y: 0}
+		time: .2
+	})
+
 hide_read = ->
 	read.draggable.enabled = false
 	Utils.delay 0.01, ->
