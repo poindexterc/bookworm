@@ -127,8 +127,6 @@ def images(filename):
 
 @route('/genre/:genre/:filename#.*#')
 def book_images(genre, filename):
-    print genre
-    print filename
     return static_file(filename, root='./genre/' + genre + "/")
 
 
