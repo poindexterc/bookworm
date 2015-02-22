@@ -1,4 +1,4 @@
-from bottle import route, run, request, post, response
+from bottle import route, run, request, post, response, static_file
 import json
 import os
 import random
@@ -26,16 +26,12 @@ def get_book_from_genre(genre):
     if not genre:
         genre = random.choice(['adventure', 'children', 'fantasy', 'sci-fi'])
     linked = "genre/" + genre
-    print linked
     list_of_books = os.listdir(linked)
     list_of_books = filter(lambda x: not x.startswith('.'), list_of_books)
-    print list_of_books
     rand_title = random.choice(list_of_books)
     json_data = open('book_info.json', 'r')
     data = json.load(json_data)
-    print rand_title
     for id_es, book in data.iteritems():
-        print book, id_es
         if (book["title"][:-3] == rand_title[:-3]):
             return {"id": id_es, "cover": linked + "/" + rand_title[:-3] + "jpg"}
 
@@ -99,5 +95,35 @@ def decrease_genre(genre):
     data[genre] = data[genre] - 1
     with open('history_id.json', 'w') as history:
         json.dump(data, history)
+
+
+@route('/')
+def index():
+    filename = 'index.html'
+    return static_file(filename, root='./bookworm.framer/')
+
+
+@route('/app.coffee')
+def coffee():
+    filename = 'app.coffee'
+    return static_file(filename, root='./bookworm.framer/')
+
+
+@route('/framer/:filename#.*#')
+def send_static(filename):
+    return static_file(filename, root='./bookworm.framer/framer/')
+
+
+@route('/images/:filename#.*#')
+def images(filename):
+    return static_file(filename, root='./bookworm.framer/images/')
+
+
+@route('/genre/:genre/:filename#.*#')
+def book_images(genre, filename):
+    print genre
+    print filename
+    return static_file(filename, root='./genre/' + genre + "/")
+
 
 run(host='localhost', port=8080, debug=True)
