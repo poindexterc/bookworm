@@ -174,7 +174,7 @@ show_text = (data) ->
 	
 read.on Events.DragMove, ->
 	console.log(read.draggable.calculateVelocity().y)
-	hide_read() if read.draggable.calculateVelocity().y > 6
+	hide_read() if read.draggable.calculateVelocity().y > 2
 	
 	
 	
