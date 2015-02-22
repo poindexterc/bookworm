@@ -7,7 +7,7 @@ book = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 book_cover = new Layer width: 750, height: 1334, backgroundColor: 'transparent', superLayer: book
 book_cover_inner = new Layer width: 527, height: 725, backgroundColor: 'transparent', superLayer: book
 current_book_id = null
-$.ajax 'http://localhost:8080/get_next_book',
+$.ajax 'https://hidden-tundra-4744.herokuapp.com/get_next_book',
 	  jsonp: "jsonp",
 	  crossOrigin: true,
 	  success: (data, status) => get_current_book(data)
@@ -84,7 +84,7 @@ upvote.on Events.TouchEnd, ->
 	
 	
 upvote.on Events.Click, ->
-	$.ajax 'http://localhost:8080/thumb_up',
+	$.ajax 'https://hidden-tundra-4744.herokuapp.com/thumb_up',
 	  type: "POST",
 	  dataType: "json",
 	  data: {
@@ -110,14 +110,14 @@ downvote.on Events.TouchEnd, ->
 	downvote.states.switch("default")
 	
 downvote.on Events.Click, ->
-	$.ajax 'http://localhost:8080/thumb_down',
+	$.ajax 'https://hidden-tundra-4744.herokuapp.com/thumb_down',
 	  type: "POST",
 	  dataType: "json",
 	  data: {
 	  	id: current_book_id
 	  },
 	  crossOrigin: true
-	 $.ajax 'http://localhost:8080/get_next_book',
+	 $.ajax 'https://hidden-tundra-4744.herokuapp.com/get_next_book',
 	  jsonp: "jsonp",
 	  crossOrigin: true,
 	  success: (data, status) => get_current_book(data)
@@ -142,7 +142,7 @@ get_text = ->
     	curve: "ease-in-out"
 	})
 		
-	$.ajax 'http://localhost:8080/get_text',
+	$.ajax 'https://hidden-tundra-4744.herokuapp.com/get_text',
 	  type: "POST",
 	  dataType: "json",
 	  data: {
@@ -174,7 +174,7 @@ show_text = (data) ->
 	
 read.on Events.DragMove, ->
 	console.log(read.draggable.calculateVelocity().y)
-	hide_read() if read.draggable.calculateVelocity().y > 6
+	hide_read() if read.draggable.calculateVelocity().y > 2
 	
 	
 	
