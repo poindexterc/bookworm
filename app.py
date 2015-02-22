@@ -3,6 +3,12 @@ import json
 import os
 import random
 
+try:
+    import gevent.monkey
+    gevent.monkey.patch_all()
+except:
+    pass
+
 
 @route('/get_next_book')
 def get_next_book():
@@ -126,4 +132,4 @@ def book_images(genre, filename):
     return static_file(filename, root='./genre/' + genre + "/")
 
 
-run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
+run(server='gevent', host='0.0.0.0', port=os.environ.get('PORT', 5000))
