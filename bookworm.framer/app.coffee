@@ -108,7 +108,7 @@ read = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 read_text = new Layer width: 750, height: 1334, backgroundColor: 'white', superLayer: read
 
 
-read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '40px', lineHeight: '120%', padding: '30px'}
+read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '40px', lineHeight: '150%', padding: '30px'}
 read_text.opacity = 0
 read.visible = false
 get_text = ->
