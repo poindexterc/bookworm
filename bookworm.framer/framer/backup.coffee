@@ -13,6 +13,7 @@ $.ajax 'http://localhost:8080/get_next_book',
 	  success: (data, status) => get_current_book(data)
 	  
 get_current_book = (data) ->
+	console.log('d', data)
 	book_cover.image = '../'+data.cover
 	book_cover_inner.image = '../'+data.cover
 	book_cover_inner.shadowY = 0
@@ -80,6 +81,17 @@ upvote.on Events.TouchStart, ->
 	
 upvote.on Events.TouchEnd, ->
 	upvote.states.switch("default")
+	
+	
+upvote.on Events.Click, ->
+	$.ajax 'http://localhost:8080/thumb_up',
+	  type: "POST",
+	  dataType: "json",
+	  data: {
+	  	id: current_book_id
+	  },
+	  crossOrigin: true
+	 
 
 downvote = new Layer width: 77, height: 73, backgroundColor: 'transparent', superLayer: book
 downvote.image = 'images/downvote.png'
@@ -96,6 +108,19 @@ downvote.on Events.TouchStart, ->
 	
 downvote.on Events.TouchEnd, ->
 	downvote.states.switch("default")
+	
+downvote.on Events.Click, ->
+	$.ajax 'http://localhost:8080/thumb_down',
+	  type: "POST",
+	  dataType: "json",
+	  data: {
+	  	id: current_book_id
+	  },
+	  crossOrigin: true
+	 $.ajax 'http://localhost:8080/get_next_book',
+	  jsonp: "jsonp",
+	  crossOrigin: true,
+	  success: (data, status) => get_current_book(data)
 
 
 
@@ -108,7 +133,7 @@ read = new Layer width: 750, height: 1334, backgroundColor: 'transparent'
 read_text = new Layer width: 750, height: 1334, backgroundColor: 'white', superLayer: read
 
 
-read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '40px', lineHeight: '120%', padding: '30px'}
+read_text.style = {color: "#000", fontFamily: 'Lusitana', fontSize: '40px', lineHeight: '150%', padding: '30px'}
 read_text.opacity = 0
 read.visible = false
 get_text = ->
@@ -150,7 +175,7 @@ show_text = (data) ->
 read.on Events.DragMove, ->
 	console.log(read.draggable.calculateVelocity().y)
 	hide_read() if read.draggable.calculateVelocity().y > 6
-	reset_read() if read.draggable.calculateVelocity().y < 6
+	
 	
 	
 reset_read = ->
