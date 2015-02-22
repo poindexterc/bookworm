@@ -193,10 +193,10 @@ hide_read = ->
 			curve: "ease-in-out"
 			time: 1
 		})
-		read.animate({
-			properties: {y: 2000},
-			time: .5
-		})
+# 		read.animate({
+# 			properties: {y: 2000},
+# 			time: .5
+# 		})
 	book.animate({
 		properties: {'opacity': 1},
 		curve: "ease-in-out",
@@ -207,3 +207,4 @@ hide_read = ->
     	curve: "ease-in-out"
 	})
 	read.visible = false
+	read.y = 0
