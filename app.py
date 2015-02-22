@@ -1,13 +1,9 @@
+from os import environ
+
 from bottle import route, run, request, post, response, static_file
 import json
 import os
 import random
-
-try:
-    import gevent.monkey
-    gevent.monkey.patch_all()
-except:
-    pass
 
 
 @route('/get_next_book')
@@ -130,4 +126,8 @@ def book_images(genre, filename):
     return static_file(filename, root='./genre/' + genre + "/")
 
 
-run(server='gevent', host='0.0.0.0', port=os.environ.get('PORT', 5000))
+# run(server='localhost', host='0.0.0.0', port=os.environ.get('PORT', 5000))
+# run(host='localhost', port=8080, debug=True)
+
+if __name__ == '__main__':
+    run(server='gunicorn', host='0.0.0.0', port=int(environ.get("PORT", 5000)))
